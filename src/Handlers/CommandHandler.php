@@ -35,9 +35,10 @@ class CommandHandler {
 
     public function makeBody($argv) {
         
-        $parameter = strtolower($argv[1].' l');
-        if(empty($parameter))
-            echo 'killer';
+        $parameter = '';
+        foreach($argv as $key => $value)
+            if($key > 0)
+                $parameter .= $value . ' ';
 
         $pos = 0;
         $len = strlen($parameter);
