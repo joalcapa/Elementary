@@ -9,7 +9,7 @@ class CommandHandler {
     private $argCommand;
 
     private function __construct() {
-
+        $this->commandFirts = $this->commandLast = null;
     }
 
     /**
