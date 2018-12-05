@@ -2,7 +2,9 @@
 
 namespace Joalcapa\Elementary\App;
 
-require('C:/xampp/htdocs/gauler/vendor/joalcapa/elementary/src/Handlers/CommandHandler.php');
+use Symfony\Component\Console\Application as App;
+
+require('C:/xampp/htdocs/gauler/vendor/joalcapa/elementary/src/Commands/CreateModelCommand.php');
 
 
 class Application {
@@ -39,7 +41,9 @@ class Application {
      * de la respuesta de la api.
      */
     public function init($argv) {
-        \Joalcapa\Elementary\Handlers\CommandHandler::getHandler()->makeBody($argv);
+        $application = new App();
+        $application->add(new \Joalcapa\Elementary\Commands\CreateModelCommand());
+        $application->run();
     }
 
     /**
