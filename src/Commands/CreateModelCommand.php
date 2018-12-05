@@ -41,6 +41,12 @@ class CreateModelCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument($this->commandArgumentName);
+        
+        if(empty($nameModel)) {
+            $output->writeln('Name of the required model');
+            exit;
+        }
+        
         $attributesModel = '';
 
         $data = "<?php\n\nnamespace Gauler\\Api\\Models;\n\nuse Joalcapa\\Fundamentary\\App\\Models\\BaseModel as Model;\n\nclass ". ucwords($name) ."sModel extends Model {\n\n\tpublic static \$model = '". ucwords($name) ."s';\n\n\tprotected \$tuples = [\n\t\t\t".$attributesModel."\n\t];\n\n\tprotected \$hidden_tuples = [\n\t];\n}";
