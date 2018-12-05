@@ -34,26 +34,30 @@ class CommandHandler {
     public function __wakeup() { }
 
     public function makeBody($argv) {
-
-        $parameter = $argv[1];
+        
+        $parameter = strtolower($argv[1].' l');
         if(empty($parameter))
             echo 'killer';
 
         $pos = 0;
         $len = strlen($parameter);
+        $value = '';
         while($pos < $len){
             switch(ord($parameter[$pos])) {
                 case 45:
-                    echo 'guion' . PHP_EOL;
+                    if($this->commandFirts == null) $this->commandFirts = $value;
+                    $value = '';
+                    break;
+                case 32:
+                    if($this->commandLast == null) $this->commandLast = $value;
+                    $value = '';
                     break;
                 default:
-                    echo 'value' . PHP_EOL;
+                    $value .= $parameter[$pos];
                     break;
             }
 
             $pos++;
-            echo PHP_EOL;
-            echo PHP_EOL;
         }
     }
 }
