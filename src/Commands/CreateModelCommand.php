@@ -41,17 +41,19 @@ class CreateModelCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument($this->commandArgumentName);
+        $attributesModel = '';
 
-        if ($name) {
-            $text = 'Hello '.$name;
-        } else {
-            $text = 'Hello';
-        }
+        $data = "<?php\n\nnamespace Gauler\\Api\\Models;\n\nuse Joalcapa\\Fundamentary\\App\\Models\\BaseModel as Model;\n\nclass ". ucwords($name) ."sModel extends Model {\n\n\tpublic static \$model = '". ucwords($name) ."s';\n\n\tprotected \$tuples = [\n\t\t\t".$attributesModel."\n\t];\n\n\tprotected \$hidden_tuples = [\n\t];\n}";
 
-        if ($input->getOption($this->commandOptionName)) {
+        /*if ($input->getOption($this->commandOptionName)) {
             $text = strtoupper($text);
-        }
+        }*/
 
-        $output->writeln($text);
+        $fileDescriptor = fopen(__DIR__ . "/../../../../../api/models/".ucwords($name)."sModel.php","w");
+        fputs($fileDescriptor,$data);
+        fclose($fileDescriptor);
+
+        $output->writeln('successfully created model whit the name: ' . ucwords($name) .'sModel.php');
+        $output->writeln('ubicacion: api\\models\\' . ucwords($name) .'sModel.php');
     }
 }
