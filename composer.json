@@ -1,0 +1,21 @@
+{
+    "name": "joalcapa/elementary",
+    "description": "command line interface, for joalcapa/Fundamentary",
+    "keywords": ["engine Rest", "engine RestFull", "Rest", "RestFull"],
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "José Cáceres",
+            "email": "josecaceres.oreul@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Joalcapa\\Elementary\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.5.0"
+    }
+}
