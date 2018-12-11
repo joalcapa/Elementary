@@ -60,6 +60,6 @@ class CreateControllerCommand extends Command
         fclose($fileDescriptor);
 
         $output->writeln('successfully created controller whith the name: ' . ucwords($nameController) .'sController.php');
-        $output->writeln('ubicacion: api\\controllers\\' . ucwords($nameController) .'sController.php');
+        $output->writeln('ubication: api\\controllers\\' . ucwords($nameController) .'sController.php');
     }
 }
