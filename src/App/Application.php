@@ -5,6 +5,7 @@ namespace Joalcapa\Elementary\App;
 use Symfony\Component\Console\Application as App;
 
 require('C:/xampp/htdocs/gauler/vendor/joalcapa/elementary/src/Commands/CreateModelCommand.php');
+require('C:/xampp/htdocs/gauler/vendor/joalcapa/elementary/src/Commands/CreateMigrationCommand.php');
 require('C:/xampp/htdocs/gauler/vendor/joalcapa/elementary/src/Commands/CreateControllerCommand.php');
 
 
@@ -44,6 +45,7 @@ class Application {
     public function init() {
         $application = new App();
         $application->add(new \Joalcapa\Elementary\Commands\CreateModelCommand());
+        $application->add(new \Joalcapa\Elementary\Commands\CreateMigrationCommand());
         $application->add(new \Joalcapa\Elementary\Commands\CreateControllerCommand());
         $application->run();
     }
