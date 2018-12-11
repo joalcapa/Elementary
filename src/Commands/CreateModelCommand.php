@@ -40,7 +40,7 @@ class CreateModelCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $name = $input->getArgument($this->commandArgumentName);
+        $nameModel = $input->getArgument($this->commandArgumentName);
         
         if(empty($nameModel)) {
             $output->writeln('Name of the required model');
@@ -49,17 +49,17 @@ class CreateModelCommand extends Command
         
         $attributesModel = '';
 
-        $data = "<?php\n\nnamespace Gauler\\Api\\Models;\n\nuse Joalcapa\\Fundamentary\\App\\Models\\BaseModel as Model;\n\nclass ". ucwords($name) ."sModel extends Model {\n\n\tpublic static \$model = '". ucwords($name) ."s';\n\n\tprotected \$tuples = [\n\t\t\t".$attributesModel."\n\t];\n\n\tprotected \$hidden_tuples = [\n\t];\n}";
+        $data = "<?php\n\nnamespace Gauler\\Api\\Models;\n\nuse Joalcapa\\Fundamentary\\App\\Models\\BaseModel as Model;\n\nclass ". ucwords($nameModel) ."sModel extends Model {\n\n\tpublic static \$model = '". ucwords($nameModel) ."s';\n\n\tprotected \$tuples = [\n\t\t\t".$attributesModel."\n\t];\n\n\tprotected \$hidden_tuples = [\n\t];\n}";
 
         /*if ($input->getOption($this->commandOptionName)) {
             $text = strtoupper($text);
         }*/
 
-        $fileDescriptor = fopen(__DIR__ . "/../../../../../api/models/".ucwords($name)."sModel.php","w");
+        $fileDescriptor = fopen(__DIR__ . "/../../../../../api/models/".ucwords($nameModel)."sModel.php","w");
         fputs($fileDescriptor,$data);
         fclose($fileDescriptor);
 
-        $output->writeln('successfully created model whit the name: ' . ucwords($name) .'sModel.php');
-        $output->writeln('ubicacion: api\\models\\' . ucwords($name) .'sModel.php');
+        $output->writeln('successfully created model whit the name: ' . ucwords($nameModel) .'sModel.php');
+        $output->writeln('ubicacion: api\\models\\' . ucwords($nameModel) .'sModel.php');
     }
 }
