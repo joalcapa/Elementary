@@ -40,7 +40,7 @@ class Application {
      * Punto de inicio de la api Rest, proceso de autenticación, busqueda del modelo y generación
      * de la respuesta de la api.
      */
-    public function init($argv) {
+    public function init() {
         $application = new App();
         $application->add(new \Joalcapa\Elementary\Commands\CreateModelCommand());
         $application->run();
