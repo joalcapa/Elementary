@@ -59,7 +59,7 @@ class CreateModelCommand extends Command
         fputs($fileDescriptor,$data);
         fclose($fileDescriptor);
 
-        $output->writeln('successfully created model whit the name: ' . ucwords($nameModel) .'sModel.php');
+        $output->writeln('successfully created model whith the name: ' . ucwords($nameModel) .'sModel.php');
         $output->writeln('ubicacion: api\\models\\' . ucwords($nameModel) .'sModel.php');
     }
 }
