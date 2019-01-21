@@ -54,6 +54,12 @@ class CreateModelCommand extends Command
             $attributesArray = [];
             foreach ($tokens as $token) {
                 $token = explode(':', $token);
+
+                if(sizeof($token) != 2) {
+                    $output->writeln('The attributes must have a name and the type of data');
+                    exit;
+                }
+
                 $attributesArray[$token[0]] = $token[1];
                 $attributesModel .= "\t\t'" . $token[0] . "',\n";
             }
