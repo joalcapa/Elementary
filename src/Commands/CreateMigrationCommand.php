@@ -65,4 +65,5 @@ class CreateMigrationCommand extends Command
         $output->writeln('successfully created migration whith the name: ' . $nameFile .'sMigration.php');
         $output->writeln('ubication: database\\migrations\\' . ucwords($nameFile) .'sMigration.php');
     }
+
 }

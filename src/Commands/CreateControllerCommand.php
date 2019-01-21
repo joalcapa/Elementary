@@ -62,4 +62,5 @@ class CreateControllerCommand extends Command
         $output->writeln('successfully created controller whith the name: ' . ucwords($nameController) .'sController.php');
         $output->writeln('ubication: api\\controllers\\' . ucwords($nameController) .'sController.php');
     }
+
 }
