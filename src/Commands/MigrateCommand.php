@@ -46,6 +46,23 @@ class MigrateCommand extends Command
 
         if(empty($nameModel)) {
             KernelDB::getKernel();
+
+            $ruta= REAL_PATH . "/database/migrations";
+
+            $directorio = opendir($ruta); //ruta actual
+            while ($archivo = readdir($directorio)) //obtenemos un archivo y luego otro sucesivamente
+                if (!is_dir($archivo))//verificamos si es o no un directorio
+                {
+                    $o = $archivo;
+                    $resultado = intval(preg_replace('/[^0-9]+/', '', $archivo), 10);
+                    $archivo = preg_replace('/[0-9]+/', '', $archivo);
+                    $output->writeln($resultado);
+                    require(REAL_PATH . "\\Database\\Migrations\\".$o);
+                    $myClass = "Gauler\\Database\\Migrations\\UserMigration";
+                    $obj = new $myClass();
+                    $obj->hola();
+                    $output->writeln($archivo);
+                }
             exit;
         }
 

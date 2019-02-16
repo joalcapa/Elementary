@@ -1,7 +1,10 @@
 <?php
 
-namespace Gauler\Database\Migrations;
+namespace Joalcapa\Elementary\Migrations;
 
 class BaseMigration {
 
+    public function hola() {
+        echo 'hola desde una migracion';
+    }
 }
