@@ -30,13 +30,6 @@ class Application {
     }
 
     /**
-     * Proceso de enviado de la respuesta de la api Rest.
-     */
-    public function sendResponse() {
-
-    }
-
-    /**
      * Punto de inicio de la api Rest, proceso de autenticación, busqueda del modelo y generación
      * de la respuesta de la api.
      */
