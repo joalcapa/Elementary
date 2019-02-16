@@ -44,7 +44,7 @@ class CreateMigrationCommand extends Command
     {
         $nameMigration = $input->getArgument($this->commandArgumentName);
         $attributes = $input->getArgument($this->commandArgumentAttributes);
-        self::createMigration($nameMigration, $attributes);
+        self::createMigration($nameMigration, $attributes, $output);
     }
 
     public static function createMigration($nameMigration, $attributes, $output) {
