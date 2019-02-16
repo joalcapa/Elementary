@@ -16,7 +16,7 @@ class MigrateCommand extends Command
     protected $commandArgumentName = "name";
     protected $commandArgumentDescription = "Who do you want to migration?";
 
-    protected $commandArgumentAttributes = "attr"; // should be specified like "app:greet John --cap"
+    protected $commandArgumentAttributes = "attr";
     protected $commandArgumentAttributesDescription = 'If set, it will greet in uppercase letters';
 
     protected function configure()

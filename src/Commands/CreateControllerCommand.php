@@ -43,7 +43,7 @@ class CreateControllerCommand extends Command
         $nameController = $input->getArgument($this->commandArgumentName);
         
         if(empty($nameController)) {
-            $output->writeln('Name of the required model');
+            $output->writeln('<error>Name of the required model</error>');
             exit;
         }
         
@@ -57,5 +57,4 @@ class CreateControllerCommand extends Command
         $output->writeln('<info>successfully created controller whith the name: ' . ucwords($nameController) .'sController.php</info>');
         $output->writeln('<info>ubication: api\\controllers\\' . ucwords($nameController) .'sController.php</info>');
     }
-
 }
