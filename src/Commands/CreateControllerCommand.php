@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateControllerCommand extends Command
 {
-    protected $commandName = 'create-controller';
+    protected $commandName = 'createController';
     protected $commandDescription = "Create Controller";
 
     protected $commandArgumentName = "name";
