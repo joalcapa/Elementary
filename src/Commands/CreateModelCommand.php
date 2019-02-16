@@ -40,7 +40,6 @@ class CreateModelCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $nameModel = $input->getArgument($this->commandArgumentName);
-
         $attributes = $input->getArgument($this->commandArgumentAttributes);
         
         if(empty($nameModel)) {

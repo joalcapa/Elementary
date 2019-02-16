@@ -7,12 +7,6 @@ use Joalcapa\Elementary\Commands\CreateModelCommand as CreateModelCommand;
 use Joalcapa\Elementary\Commands\CreateMigrationCommand as CreateMigrationCommand;
 use Joalcapa\Elementary\Commands\CreateControllerCommand as CreateControllerCommand;
 
-
-require('C:/xampp/htdocs/gauler2/vendor/joalcapa/elementary/src/Commands/CreateModelCommand.php');
-require('C:/xampp/htdocs/gauler2/vendor/joalcapa/elementary/src/Commands/CreateMigrationCommand.php');
-require('C:/xampp/htdocs/gauler2/vendor/joalcapa/elementary/src/Commands/CreateControllerCommand.php');
-
-
 class Application {
 
     private $kernels = [];
