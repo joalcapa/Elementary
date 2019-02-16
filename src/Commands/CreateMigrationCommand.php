@@ -44,7 +44,11 @@ class CreateMigrationCommand extends Command
     {
         $nameMigration = $input->getArgument($this->commandArgumentName);
         $attributes = $input->getArgument($this->commandArgumentAttributes);
-        
+        self::createMigration($nameMigration, $attributes);
+    }
+
+    public static function createMigration($nameMigration, $attributes, $output) {
+
         if(empty($nameMigration)) {
             $output->writeln('<error>Name of the required migration</error>');
             exit;
@@ -75,10 +79,6 @@ class CreateMigrationCommand extends Command
         }
 
         $data = "<?php\n\nnamespace Gauler\Database\Migrations;\n\nuse Joalcapa\Elementary\Generics\TypeAttrQ as TypeAttrQ;\nuse Joalcapa\Elementary\Migrations\BaseMigration as Migration;\n\nclass ".ucwords($nameMigration)."sMigration extends Migration {\n\n\tpublic \$attributes = [\n".$attributesModel."\t];\n}";
-        
-        /*if ($input->getOption($this->commandOptionName)) {
-            $text = strtoupper($text);
-        }*/
 
         $date = new DateTime();
         $nameFile = $date->getTimestamp().ucwords($nameMigration);

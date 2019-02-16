@@ -8,6 +8,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use Joalcapa\Elementary\Commands\CreateMigrationCommand as CreateMigrationCommand;
+
 class CreateModelCommand extends Command
 {
     protected $commandName = 'createModel';
@@ -62,6 +64,8 @@ class CreateModelCommand extends Command
                 $attributesArray[$token[0]] = $token[1];
                 $attributesModel .= "\t\t'" . $token[0] . "',\n";
             }
+
+            CreateMigrationCommand::createMigration($nameModel, $attributes, $output);
         }
 
         $data = "<?php\n\nnamespace Gauler\\Api\\Models;\n\nuse Joalcapa\\Fundamentary\\App\\Models\\BaseModel as Model;\n\nclass ". ucwords($nameModel) ."sModel extends Model {\n\n\tpublic static \$model = '". ucwords($nameModel) ."s';\n\n\tprotected \$tuples = [\n".$attributesModel."\t];\n\n\tprotected \$hidden_tuples = [\n\t];\n}";
