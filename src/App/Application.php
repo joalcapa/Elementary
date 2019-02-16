@@ -17,7 +17,15 @@ class Application {
      *
      * @param  string  $path
      */
-    public function __construct() {
+    public function __construct($path) {
+        define("REAL_PATH", $path);
+
+        try {
+            $dotenv = new Dotenv\Dotenv(REAL_PATH);
+            $dotenv->load();
+        } catch(Exception $exception) {
+            echo 'Error: '. $exception;
+        }
 
     }
 

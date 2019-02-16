@@ -8,6 +8,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use Joalcapa\Fundamentary\Database\Kernel as KernelDB;
+
 class MigrateCommand extends Command
 {
     protected $commandName = 'migrate';
@@ -43,6 +45,10 @@ class MigrateCommand extends Command
         $attributes = $input->getArgument($this->commandArgumentAttributes);
 
         if(empty($nameModel)) {
+
+            KernelDB::getKernel();
+
+
             $output->writeln('Vamos a migrar');
             exit;
         }
