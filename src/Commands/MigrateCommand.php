@@ -52,44 +52,20 @@ class MigrateCommand extends Command
                 {
                     require(REAL_PATH . "\\Database\\Migrations\\".$file);
                     $modelMigrate = preg_replace('/[0-9]+/', '', $file);
-                    $modelMigrate = $resultado = str_replace('.php', '', $modelMigrate);
+                    $modelMigrate = str_replace('.php', '', $modelMigrate);
                     $date = intval(preg_replace('/[^0-9]+/', '', $file), 10);
 
                     $modelMigration = "Gauler\\Database\\Migrations\\".$modelMigrate;
                     $migrate = new $modelMigration();
+
+                    $modelMigrate = str_replace('Migration', '', $modelMigrate);
                     $migrate->up($date, $modelMigrate);
 
-                    $output->writeln($modelMigration);
+                    $output->writeln('successfully created the table whith the name ' . strtolower($modelMigrate) . ' in the bbdd');
                 }
-            exit;
+        } else {
+
         }
 
-        $attributesModel = '';
-        if(!empty($attributes)) {
-            $tokens = explode(',', $attributes);
-            $attributesArray = [];
-            foreach ($tokens as $token) {
-                $token = explode(':', $token);
-
-                if(sizeof($token) != 2) {
-                    $output->writeln('The attributes must have a name and the type of data');
-                    exit;
-                }
-
-                $attributesArray[$token[0]] = $token[1];
-                $attributesModel .= "\t\t'" . $token[0] . "',\n";
-            }
-        }
-
-        $data = "<?php\n\nnamespace Gauler\\Api\\Models;\n\nuse Joalcapa\\Fundamentary\\App\\Models\\BaseModel as Model;\n\nclass ". ucwords($nameModel) ."sModel extends Model {\n\n\tpublic static \$model = '". ucwords($nameModel) ."s';\n\n\tprotected \$tuples = [\n".$attributesModel."\t];\n\n\tprotected \$hidden_tuples = [\n\t];\n}";
-
-        $fileDescriptor = fopen(__DIR__ . "/../../../../../api/models/".ucwords($nameModel)."sModel.php","w");
-
-        fputs($fileDescriptor, $data);
-
-        fclose($fileDescriptor);
-
-        $output->writeln('successfully created model whith the name: ' . ucwords($nameModel) .'sModel.php');
-        $output->writeln('ubication: api\\models\\' . ucwords($nameModel) .'sModel.php');
     }
 }
