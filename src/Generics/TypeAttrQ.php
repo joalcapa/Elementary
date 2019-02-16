@@ -3,9 +3,9 @@
 namespace Joalcapa\Elementary\Generics;
 
 class TypeAttrQ {
-    const STRING = 'string';
-    const INTEGER = 'integer';
-    const DOUBLE = 'double';
-    const BOOLEAN = 'boolean';
-    const FLOAT = 'float';
+    public static const STRING = 'string';
+    public static const INTEGER = 'integer';
+    public static const DOUBLE = 'double';
+    public static const BOOLEAN = 'boolean';
+    public static const FLOAT = 'float';
 }

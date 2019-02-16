@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateMigrationCommand extends Command
 {
-    protected $commandName = 'create-migration';
+    protected $commandName = 'createMigration';
     protected $commandDescription = "Create Migration";
 
     protected $commandArgumentName = "name";
