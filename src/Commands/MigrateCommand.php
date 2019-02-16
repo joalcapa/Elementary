@@ -59,9 +59,12 @@ class MigrateCommand extends Command
                     $migrate = new $modelMigration();
 
                     $modelMigrate = str_replace('Migration', '', $modelMigrate);
-                    $migrate->up($date, $modelMigrate);
 
-                    $output->writeln('successfully created the table whith the name ' . strtolower($modelMigrate) . ' in the bbdd');
+                    if(sizeof($migrate->attributes) > 0) {
+                        $isMigrate = $migrate->up($date, $modelMigrate);
+                        $output->writeln('<info>successfully created the table whith the name ' . strtolower($modelMigrate) . ' in the bbdd</info>');
+                    } else
+                        $output->writeln('<comment>The migration of model '.$modelMigrate.' file has no attributes defined for the table of the bbdd</comment>');
                 }
         } else {
 
