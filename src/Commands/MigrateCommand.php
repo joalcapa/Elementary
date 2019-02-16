@@ -8,8 +8,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use Joalcapa\Fundamentary\Database\Kernel as KernelDB;
-
 class MigrateCommand extends Command
 {
     protected $commandName = 'migrate';
@@ -45,23 +43,23 @@ class MigrateCommand extends Command
         $attributes = $input->getArgument($this->commandArgumentAttributes);
 
         if(empty($nameModel)) {
-            KernelDB::getKernel();
 
-            $ruta= REAL_PATH . "/database/migrations";
+            $route = REAL_PATH . "/database/migrations";
+            $directory = opendir($route);
 
-            $directorio = opendir($ruta); //ruta actual
-            while ($archivo = readdir($directorio)) //obtenemos un archivo y luego otro sucesivamente
-                if (!is_dir($archivo))//verificamos si es o no un directorio
+            while ($file = readdir($directory))
+                if (!is_dir($file))
                 {
-                    $o = $archivo;
-                    $resultado = intval(preg_replace('/[^0-9]+/', '', $archivo), 10);
-                    $archivo = preg_replace('/[0-9]+/', '', $archivo);
-                    $output->writeln($resultado);
-                    require(REAL_PATH . "\\Database\\Migrations\\".$o);
-                    $myClass = "Gauler\\Database\\Migrations\\UserMigration";
-                    $obj = new $myClass();
-                    $obj->hola();
-                    $output->writeln($archivo);
+                    require(REAL_PATH . "\\Database\\Migrations\\".$file);
+                    $modelMigrate = preg_replace('/[0-9]+/', '', $file);
+                    $modelMigrate = $resultado = str_replace('.php', '', $modelMigrate);
+                    $date = intval(preg_replace('/[^0-9]+/', '', $file), 10);
+
+                    $modelMigration = "Gauler\\Database\\Migrations\\".$modelMigrate;
+                    $migrate = new $modelMigration();
+                    $migrate->up($date, $modelMigrate);
+
+                    $output->writeln($modelMigration);
                 }
             exit;
         }

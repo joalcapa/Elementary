@@ -50,7 +50,7 @@ class CreateMigrationCommand extends Command
         
         $attributesModel = '';
 
-        $data = "<?php\n\nnamespace Gauler\Database\Migrations;\n\nuse Joalcapa\Origins\App\Migrations\BaseMigration as Migration;\nuse Joalcapa\Origins\App\DataBase\Types\DBTypes as DBTypes;\n\nclass ".ucwords($nameMigration)."sMigration extends Migration {\n\n\tpublic \$attributes = [\n\t];\n\n\tpublic \$dependencias = [\n\t];\n}";
+        $data = "<?php\n\nnamespace Gauler\Database\Migrations;\n\nuse Joalcapa\Elementary\Generics\TypeAttrQ as TypeAttrQ;\nuse Joalcapa\Elementary\Migrations\BaseMigration as Migration;\n\nclass ".ucwords($nameMigration)."sMigration extends Migration {\n\n\tpublic \$attributes = [\n\t];\n\n\tpublic \$dependencias = [\n\t];\n}";
         
         /*if ($input->getOption($this->commandOptionName)) {
             $text = strtoupper($text);
