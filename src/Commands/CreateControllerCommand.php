@@ -48,19 +48,14 @@ class CreateControllerCommand extends Command
         }
         
         $attributesModel = '';
-
         $data = "<?php\n\nnamespace Gauler\Api\Controllers;\n\nclass ".ucwords($nameController)."sController extends Controller {\n\n\t/**\n\t* @param  \Fundamentary\Http\Interactions\Request\Request  \$request\n\t* @return  array\n\t*/\n\tpublic function index(\$request) {\t\t}\n\n\n\t/**\n\t* @param  \$id\n\t* @return  array\n\t*/\n\tpublic function show(\$id) {\t\t}\n\n\n\t/**\n\t* @param  \Fundamentary\Http\Interactions\Request\Request  \$request\n\t* @return  array\n\t*/\n\tpublic function store(\$request) {\t\t}\n\n\n\t/**\n\t* @param  \$id\n\t* @param  \Fundamentary\Http\Interactions\Request\Request  \$request\n\t* @return  array\n\t*/\n\tpublic function update(\$id, \$request) {\t\t}\n\n\n\t/**\n\t* @param  \$id\n\t* @return  array\n\t*/\n\tpublic function destroy(\$id) {\t\t}\n}";
-        
-        /*if ($input->getOption($this->commandOptionName)) {
-            $text = strtoupper($text);
-        }*/
 
         $fileDescriptor = fopen(__DIR__ . "/../../../../../api/controllers/".ucwords($nameController)."sController.php","w");
         fputs($fileDescriptor, $data);
         fclose($fileDescriptor);
 
-        $output->writeln('successfully created controller whith the name: ' . ucwords($nameController) .'sController.php');
-        $output->writeln('ubication: api\\controllers\\' . ucwords($nameController) .'sController.php');
+        $output->writeln('<info>successfully created controller whith the name: ' . ucwords($nameController) .'sController.php</info>');
+        $output->writeln('<info>ubication: api\\controllers\\' . ucwords($nameController) .'sController.php</info>');
     }
 
 }

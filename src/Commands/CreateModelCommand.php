@@ -52,7 +52,7 @@ class CreateModelCommand extends Command
             $tokens = explode(',', $attributes);
             $attributesArray = [];
             foreach ($tokens as $token) {
-                $token = explode('=', $token);
+                $token = explode(':', $token);
 
                 if(sizeof($token) != 2) {
                     $output->writeln('The attributes must have a name and the type of data');
@@ -72,7 +72,7 @@ class CreateModelCommand extends Command
 
         fclose($fileDescriptor);
 
-        $output->writeln('successfully created model whith the name: ' . ucwords($nameModel) .'sModel.php');
-        $output->writeln('ubication: api\\models\\' . ucwords($nameModel) .'sModel.php');
+        $output->writeln('<info>successfully created model whith the name: ' . ucwords($nameModel) .'sModel.php</info>');
+        $output->writeln('<info>ubication: api\\models\\' . ucwords($nameModel) .'sModel.php</info>');
     }
 }

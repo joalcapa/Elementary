@@ -9,6 +9,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use Joalcapa\Elementary\Generics\TypeAttrQ as TypeAttrQ;
+
 class CreateMigrationCommand extends Command
 {
     protected $commandName = 'createMigration';
@@ -17,8 +19,8 @@ class CreateMigrationCommand extends Command
     protected $commandArgumentName = "name";
     protected $commandArgumentDescription = "Who do you want to model?";
 
-    protected $commandOptionName = "attributes"; // should be specified like "app:greet John --cap"
-    protected $commandOptionDescription = 'If set, it will greet in uppercase letters';
+    protected $commandArgumentAttributes = "attr"; // should be specified like "app:greet John --cap"
+    protected $commandArgumentAttributesDescription = 'If set, it will greet in uppercase letters';
 
     protected function configure()
     {
@@ -30,11 +32,10 @@ class CreateMigrationCommand extends Command
                 InputArgument::OPTIONAL,
                 $this->commandArgumentDescription
             )
-            ->addOption(
-                $this->commandOptionName,
-                null,
-                InputOption::VALUE_NONE,
-                $this->commandOptionDescription
+            ->addArgument(
+                $this->commandArgumentAttributes,
+                InputArgument::OPTIONAL,
+                $this->commandArgumentAttributesDescription
             )
         ;
     }
@@ -42,15 +43,38 @@ class CreateMigrationCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $nameMigration = $input->getArgument($this->commandArgumentName);
+        $attributes = $input->getArgument($this->commandArgumentAttributes);
         
         if(empty($nameMigration)) {
-            $output->writeln('Name of the required migration');
+            $output->writeln('<error>Name of the required migration</error>');
             exit;
         }
-        
-        $attributesModel = '';
 
-        $data = "<?php\n\nnamespace Gauler\Database\Migrations;\n\nuse Joalcapa\Elementary\Generics\TypeAttrQ as TypeAttrQ;\nuse Joalcapa\Elementary\Migrations\BaseMigration as Migration;\n\nclass ".ucwords($nameMigration)."sMigration extends Migration {\n\n\tpublic \$attributes = [\n\t];\n}";
+        $attributesModel = '';
+        if(!empty($attributes)) {
+            $tokens = explode(',', $attributes);
+            foreach ($tokens as $token) {
+                $token = explode(':', $token);
+
+                if(sizeof($token) != 2) {
+                    $output->writeln('<error>The attributes must have a name and the type of data</error>');
+                    exit;
+                }
+
+                $typeBBDD = '';
+                switch ($token[1]) {
+                    case TypeAttrQ::STRING:
+                        $typeBBDD = 'TypeAttrQ::STRING';
+                        break;
+                    default:
+                        $output->writeln('<error>The attributes does not have a type valid</error>');
+                        exit;
+                }
+                $attributesModel .= "\t\t'" . $token[0] . "' => " .$typeBBDD.",\n";
+            }
+        }
+
+        $data = "<?php\n\nnamespace Gauler\Database\Migrations;\n\nuse Joalcapa\Elementary\Generics\TypeAttrQ as TypeAttrQ;\nuse Joalcapa\Elementary\Migrations\BaseMigration as Migration;\n\nclass ".ucwords($nameMigration)."sMigration extends Migration {\n\n\tpublic \$attributes = [\n".$attributesModel."\t];\n}";
         
         /*if ($input->getOption($this->commandOptionName)) {
             $text = strtoupper($text);
@@ -62,8 +86,8 @@ class CreateMigrationCommand extends Command
         fputs($fileDescriptor, $data);
         fclose($fileDescriptor);
 
-        $output->writeln('successfully created migration whith the name: ' . $nameFile .'sMigration.php');
-        $output->writeln('ubication: database\\migrations\\' . ucwords($nameFile) .'sMigration.php');
+        $output->writeln('<info>successfully created migration whith the name: ' . $nameFile .'sMigration.php</info>');
+        $output->writeln('<info>ubication: database\\migrations\\' . ucwords($nameFile) .'sMigration.php</info>');
     }
 
 }
