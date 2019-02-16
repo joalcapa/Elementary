@@ -45,11 +45,7 @@ class MigrateCommand extends Command
         $attributes = $input->getArgument($this->commandArgumentAttributes);
 
         if(empty($nameModel)) {
-
             KernelDB::getKernel();
-
-
-            $output->writeln('Vamos a migrar');
             exit;
         }
 

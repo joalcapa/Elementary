@@ -52,7 +52,7 @@ class CreateModelCommand extends Command
             $tokens = explode(',', $attributes);
             $attributesArray = [];
             foreach ($tokens as $token) {
-                $token = explode(':', $token);
+                $token = explode('=', $token);
 
                 if(sizeof($token) != 2) {
                     $output->writeln('The attributes must have a name and the type of data');
