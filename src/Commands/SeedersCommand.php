@@ -41,27 +41,33 @@ class SeedersCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $nameModel = $input->getArgument($this->commandArgumentName);
+        $nameSeeder = $input->getArgument($this->commandArgumentName);
         $attributes = $input->getArgument($this->commandArgumentAttributes);
 
-        if(empty($nameModel)) {
-            KernelDB::getKernel();
-            $route = REAL_PATH . "/seeders";
-            $directory = opendir($route);
+        KernelDB::getKernel();
+        $route = REAL_PATH . "/seeders";
+        $directory = opendir($route);
 
-            while ($file = readdir($directory))
-                if (!is_dir($file))
-                {
-                    require(REAL_PATH . "\\Seeders\\".$file);
-                    $modelSeeder = str_replace('.php', '', $file);
-                    $modelSeeder = "Gauler\\Seeders\\".$modelSeeder;
-                    $seeder = new $modelSeeder();
-                    $seeder->boom();
-                    $output->writeln('<info>successfully run seeder ' . strtolower($modelSeeder) . ' in the bbdd</info>');
+        while ($file = readdir($directory))
+            if (!is_dir($file))
+            {
+                $modelSeeder = str_replace('.php', '', $file);
+                if(empty($nameSeeder))
+                    $this->boom($file, $modelSeeder, $output);
+                else {
+                    if(strtolower($nameSeeder) == strtolower($modelSeeder)) {
+                        $this->boom($file, $modelSeeder, $output);
+                        return;
+                    }
                 }
-        } else {
+            }
+    }
 
-        }
-
+    public function boom($file, $modelSeeder, $output) {
+        require(REAL_PATH . "\\Seeders\\" . $file);
+        $modelSeeder = "Gauler\\Seeders\\" . $modelSeeder;
+        $seeder = new $modelSeeder();
+        $seeder->boom();
+        $output->writeln('<info>successfully run seeder ' . strtolower($modelSeeder) . ' in the bbdd</info>');
     }
 }

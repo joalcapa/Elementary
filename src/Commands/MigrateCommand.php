@@ -39,36 +39,41 @@ class MigrateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $nameModel = $input->getArgument($this->commandArgumentName);
+        $nameMigrate = $input->getArgument($this->commandArgumentName);
         $attributes = $input->getArgument($this->commandArgumentAttributes);
 
-        if(empty($nameModel)) {
+        $route = REAL_PATH . "/database/migrations";
+        $directory = opendir($route);
 
-            $route = REAL_PATH . "/database/migrations";
-            $directory = opendir($route);
+        while ($file = readdir($directory))
+            if (!is_dir($file))
+            {
+                $modelMigrate = preg_replace('/[0-9]+/', '', $file);
+                $modelMigrate = str_replace('.php', '', $modelMigrate);
+                $date = intval(preg_replace('/[^0-9]+/', '', $file), 10);
 
-            while ($file = readdir($directory))
-                if (!is_dir($file))
-                {
-                    require(REAL_PATH . "\\Database\\Migrations\\".$file);
-                    $modelMigrate = preg_replace('/[0-9]+/', '', $file);
-                    $modelMigrate = str_replace('.php', '', $modelMigrate);
-                    $date = intval(preg_replace('/[^0-9]+/', '', $file), 10);
-
-                    $modelMigration = "Gauler\\Database\\Migrations\\".$modelMigrate;
-                    $migrate = new $modelMigration();
-
-                    $modelMigrate = str_replace('Migration', '', $modelMigrate);
-
-                    if(sizeof($migrate->attributes) > 0) {
-                        $isMigrate = $migrate->up($date, $modelMigrate);
-                        $output->writeln('<info>successfully created the table whith the name ' . strtolower($modelMigrate) . ' in the bbdd</info>');
-                    } else
-                        $output->writeln('<comment>The migration of model '.$modelMigrate.' file has no attributes defined for the table of the bbdd</comment>');
+                if(empty($nameMigrate))
+                    $this->migrate($file, $modelMigrate, $date, $output);
+                else {
+                    if(strtolower($nameMigrate) == strtolower($modelMigrate)) {
+                        $this->migrate($file, $modelMigrate, $date, $output);
+                        return;
+                    }
                 }
-        } else {
+            }
+    }
 
-        }
+    public function migrate($file, $modelMigrate, $date, $output) {
+        require(REAL_PATH . "\\Database\\Migrations\\" . $file);
+        $modelMigration = "Gauler\\Database\\Migrations\\" . $modelMigrate;
+        $migrate = new $modelMigration();
 
+        $modelMigrate = str_replace('Migration', '', $modelMigrate);
+
+        if (sizeof($migrate->attributes) > 0) {
+            $isMigrate = $migrate->up($date, $modelMigrate);
+            $output->writeln('<info>successfully created the table whith the name ' . strtolower($modelMigrate) . ' in the bbdd</info>');
+        } else
+            $output->writeln('<comment>The migration of model ' . $modelMigrate . ' file has no attributes defined for the table of the bbdd</comment>');
     }
 }
