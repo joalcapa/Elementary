@@ -13,3 +13,24 @@ function env($environment, $parameter) {
         return $env;
     return $parameter;
 }
+
+/**
+ * Encriptación de datos en modo PASSWORD_BCRYPT.
+ *
+ * @param  string  $parameter
+ * @return  $string
+ */
+function hashBCrypt($parameter) {
+    return password_hash($parameter, PASSWORD_BCRYPT);
+}
+
+/**
+ * Verificación de dato encriptado.
+ *
+ * @param  string  $parameter
+ * @param  string  $parameterHash
+ * @return  boolean
+ */
+function verifyBCrypt($parameter, $parameterHash) {
+    return password_verify($parameter, $parameterHash);
+}

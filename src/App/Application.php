@@ -3,8 +3,10 @@
 namespace Joalcapa\Elementary\App;
 
 use Symfony\Component\Console\Application as App;
+use Joalcapa\Elementary\Commands\SeedersCommand as SeedersCommand;
 use Joalcapa\Elementary\Commands\MigrateCommand as MigrateCommand;
 use Joalcapa\Elementary\Commands\CreateModelCommand as CreateModelCommand;
+use Joalcapa\Elementary\Commands\CreateSeederCommand as CreateSeederCommand;
 use Joalcapa\Elementary\Commands\CreateMigrationCommand as CreateMigrationCommand;
 use Joalcapa\Elementary\Commands\CreateControllerCommand as CreateControllerCommand;
 
@@ -37,8 +39,10 @@ class Application {
      */
     public function init() {
         $application = new App();
+        $application->add(new SeedersCommand());
         $application->add(new MigrateCommand());
         $application->add(new CreateModelCommand());
+        $application->add(new CreateSeederCommand());
         $application->add(new CreateMigrationCommand());
         $application->add(new CreateControllerCommand());
         $application->run();
