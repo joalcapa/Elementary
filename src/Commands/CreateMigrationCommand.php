@@ -70,6 +70,9 @@ class CreateMigrationCommand extends Command
                     case TypeAttrQ::STRING:
                         $typeBBDD = 'TypeAttrQ::STRING';
                         break;
+                    case TypeAttrQ::INTEGER:
+                        $typeBBDD = 'TypeAttrQ::INTEGER';
+                        break;
                     default:
                         $output->writeln('<error>The attributes does not have a type valid</error>');
                         exit;
