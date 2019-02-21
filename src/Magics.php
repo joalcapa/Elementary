@@ -1,7 +1,7 @@
 <?php
 
 try {
-    $dotenv = new Dotenv\Dotenv(REAL_PATH);
+    $dotenv = Dotenv\Dotenv::create(REAL_PATH);
     $dotenv->load();
 } catch(Exception $exception) {
     echo 'Error: '. $exception;
