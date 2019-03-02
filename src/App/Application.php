@@ -9,6 +9,7 @@ use Joalcapa\Elementary\Commands\CreateModelCommand as CreateModelCommand;
 use Joalcapa\Elementary\Commands\CreateSeederCommand as CreateSeederCommand;
 use Joalcapa\Elementary\Commands\CreateMigrationCommand as CreateMigrationCommand;
 use Joalcapa\Elementary\Commands\CreateControllerCommand as CreateControllerCommand;
+use Joalcapa\Elementary\Commands\CreateMiddlewareCommand as CreateMiddlewareCommand;
 
 class Application {
 
@@ -45,6 +46,7 @@ class Application {
         $application->add(new CreateSeederCommand());
         $application->add(new CreateMigrationCommand());
         $application->add(new CreateControllerCommand());
+        $application->add(new CreateMiddlewareCommand());
         $application->run();
     }
 
